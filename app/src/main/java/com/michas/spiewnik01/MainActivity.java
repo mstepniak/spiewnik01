@@ -11,45 +11,81 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "com.michals.spiewnik01.MESSAGE";
+    public static final String EXTRA_MESSAGE2 = "com.michals.spiewnik01.MESSAGE2";
     ListView ListViewCountry;
     ArrayAdapter<String> adapter;
+    public static HashMap<String, String> m_li = new HashMap<>();
+
+
     Object listItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ListViewCountry = (ListView)findViewById(R.id.ListViewCountry);
-        ArrayList<String> arrayCountry = new ArrayList<>();
-        arrayCountry.addAll(Arrays.asList(getResources().getStringArray(R.array.array_country)));
+        try {
+            JSONObject obj = new JSONObject(loadJSONFromAsset());
+            JSONArray m_jArry = obj.getJSONArray("songs");
+            ArrayList<String> arraySongs = new ArrayList<>();
 
-        adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, arrayCountry);
+            for (int i = 0; i < m_jArry.length(); i++) {
+                JSONObject jo_inside = m_jArry.getJSONObject(i);
+                String song_value = jo_inside.getString("song");
+                String text_value = jo_inside.getString("text");
 
-        ListViewCountry.setAdapter(adapter);
-        ListViewCountry.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                listItem = ListViewCountry.getItemAtPosition(i);
-                //TextView textView = findViewById(R.id.dupa);
-                //textView.setText(listItem.toString());
-                sendMessage();
+                m_li.put(song_value, text_value);
+                arraySongs.add(song_value);
 
             }
-        });
+            ListViewCountry = (ListView)findViewById(R.id.ListViewCountry);
+            adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, arraySongs); //formList
 
+            ListViewCountry.setAdapter(adapter);
+            ListViewCountry.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    listItem = ListViewCountry.getItemAtPosition(i);
+                    sendMessage();
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public void sendMessage() {
         Intent intent = new Intent(this, DisplaySong.class);
         intent.putExtra(EXTRA_MESSAGE, listItem.toString());
+        intent.putExtra(EXTRA_MESSAGE2, m_li.get(listItem.toString()));
         startActivity(intent);
+    }
+
+    public String loadJSONFromAsset() {
+        String json;
+        try {
+            InputStream is = getAssets().open("songs.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
     }
 
     @Override
