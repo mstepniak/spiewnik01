@@ -9,8 +9,8 @@
     <TextView
         android:id="@+id/songTitle"
         android:layout_width="294dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="TextView"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -21,7 +21,6 @@
         android:id="@+id/songText"
         android:layout_width="333dp"
         android:layout_height="451dp"
-        android:layout_marginBottom="16dp"
         android:maxLines="100"
         android:scrollbars="vertical"
         android:text="TextView"
