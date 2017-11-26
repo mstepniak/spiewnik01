@@ -7,12 +7,13 @@
 
     <TextView
         android:id="@+id/songTitle"
-        android:layout_width="294dp"
-        android:layout_height="38dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="TextView"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/songText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

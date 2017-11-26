@@ -29,9 +29,8 @@ public class MainActivity extends AppCompatActivity {
     ListView ListViewCountry;
     ArrayAdapter<String> adapter;
     public static HashMap<String, String> m_li = new HashMap<>();
-
-
     Object listItem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             }
             Collections.sort(arraySongs);
             ListViewCountry = (ListView)findViewById(R.id.ListViewCountry);
-            adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, arraySongs); //formList
+            adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, arraySongs);
 
             ListViewCountry.setAdapter(adapter);
             ListViewCountry.setOnItemClickListener(new AdapterView.OnItemClickListener() {
