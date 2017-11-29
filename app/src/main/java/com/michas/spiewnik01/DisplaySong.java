@@ -3,6 +3,7 @@ package com.michas.spiewnik01;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
 
@@ -18,13 +19,13 @@ public class DisplaySong extends AppCompatActivity {
         setContentView(R.layout.activity_song);
 
         Intent intent = getIntent();
-        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-        String dupa = intent.getStringExtra(MainActivity.EXTRA_MESSAGE2);
+        String title = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        String songText = intent.getStringExtra(MainActivity.EXTRA_MESSAGE2);
 
         TextView textViewTitle = findViewById(R.id.songTitle);
-        textViewTitle.setText(message);
+        textViewTitle.setText(title);
         TextView textViewSong = findViewById(R.id.songText);
         textViewSong.setMovementMethod(new ScrollingMovementMethod());
-        textViewSong.setText(dupa);
+        textViewSong.setText(songText);
     }
 }
