@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,14 +44,15 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < m_jArry.length(); i++) {
                 JSONObject jo_inside = m_jArry.getJSONObject(i);
                 String song_value = jo_inside.getString("song");
+                String normSongValue = StringUtils.stripAccents(song_value);
                 String text_value = jo_inside.getString("text");
 
-                m_li.put(song_value, text_value);
-                arraySongs.add(song_value);
+                m_li.put(normSongValue, text_value);
+                arraySongs.add(normSongValue);
 
             }
             Collections.sort(arraySongs);
-            ListViewCountry = (ListView)findViewById(R.id.ListViewCountry);
+            ListViewCountry = (ListView) findViewById(R.id.ListViewCountry);
             adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, arraySongs);
 
             ListViewCountry.setAdapter(adapter);
@@ -95,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu_search, menu);
         MenuItem item = menu.findItem(R.id.menuSearch);
 
-        SearchView searchView = (SearchView)item.getActionView();
+        SearchView searchView = (SearchView) item.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -104,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
+                adapter.getFilter().filter(StringUtils.stripAccents(newText));
                 return false;
             }
         });
