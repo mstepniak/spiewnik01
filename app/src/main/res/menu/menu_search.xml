@@ -9,4 +9,14 @@
 
     </item>
 
+    <item
+        android:id="@+id/action_about"
+        android:title="O aplikacji"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/settings"
+        android:title="Ustawienia"
+        app:showAsAction="never" />
+
 </menu>

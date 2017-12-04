@@ -1,6 +1,7 @@
 package com.michas.spiewnik01;
 
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -96,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_search, menu);
         MenuItem item = menu.findItem(R.id.menuSearch);
+        MenuItem about = menu.findItem(R.id.action_about);
 
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -112,5 +114,27 @@ public class MainActivity extends AppCompatActivity {
         });
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        //handle presses on the action bar items
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+
+            case R.id.action_about:
+                startActivity(new Intent(this, AboutPage.class));
+                return true;
+
+            case R.id.settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -28,6 +28,7 @@
         android:layout_marginTop="8dp"
         android:maxLines="100"
         android:scrollbars="vertical"
+        android:textSize="12sp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
