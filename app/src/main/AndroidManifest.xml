@@ -32,13 +32,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainActivity">
+        <activity android:name=".SettingActivity"
+                android:parentActivityName=".MainActivity"
+            android:label="Ustawienia">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.michas.spiewnik01.MainActivity" />
+                android:value=".MainActivity" />
+
         </activity>
     </application>
 

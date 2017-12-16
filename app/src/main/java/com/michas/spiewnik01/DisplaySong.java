@@ -1,10 +1,13 @@
 package com.michas.spiewnik01;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,7 +23,6 @@ public class DisplaySong extends AppCompatActivity {
     TextView textViewSong;
     int textSize = 14;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song);
@@ -28,6 +30,12 @@ public class DisplaySong extends AppCompatActivity {
         Intent intent = getIntent();
         String title = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         String songText = intent.getStringExtra(MainActivity.EXTRA_MESSAGE2);
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String receivedSize = sharedPrefs.getString("fonts", "DEFAULT");
+        if (!receivedSize.equals("")){
+            textSize = Integer.parseInt(receivedSize);
+        }
 
         TextView textViewTitle = findViewById(R.id.songTitle);
         textViewTitle.setText(title);

@@ -1,9 +1,12 @@
 package com.michas.spiewnik01;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -32,15 +35,35 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     public static HashMap<String, String> m_li = new HashMap<>();
     Object listItem;
+    ArrayList<String> arraySongs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (arraySongs == null) {
+            loadJson();
+        }
+
+        ListViewCountry = (ListView) findViewById(R.id.ListViewCountry);
+        adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, arraySongs);
+
+        ListViewCountry.setAdapter(adapter);
+        ListViewCountry.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                listItem = ListViewCountry.getItemAtPosition(i);
+                sendMessage();
+            }
+        });
+    }
+
+    private void loadJson() {
         try {
             JSONObject obj = new JSONObject(loadJSONFromAsset());
             JSONArray m_jArry = obj.getJSONArray("songs");
-            ArrayList<String> arraySongs = new ArrayList<>();
+            arraySongs = new ArrayList<>();
 
             for (int i = 0; i < m_jArry.length(); i++) {
                 JSONObject jo_inside = m_jArry.getJSONObject(i);
@@ -53,23 +76,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
             Collections.sort(arraySongs);
-            ListViewCountry = (ListView) findViewById(R.id.ListViewCountry);
-            adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, arraySongs);
-
-            ListViewCountry.setAdapter(adapter);
-            ListViewCountry.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    listItem = ListViewCountry.getItemAtPosition(i);
-                    sendMessage();
-                }
-            });
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public void sendMessage() {
+    private void sendMessage() {
         Intent intent = new Intent(this, DisplaySong.class);
         intent.putExtra(EXTRA_MESSAGE, listItem.toString());
         intent.putExtra(EXTRA_MESSAGE2, m_li.get(listItem.toString()));
@@ -131,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.settings:
-                startActivity(new Intent(this, SettingsActivity.class));
+                startActivity(new Intent(this, SettingActivity.class));
                 return true;
 
         }

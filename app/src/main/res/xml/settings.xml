@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="Ustawienia" >
+    <ListPreference
+        android:key="fonts"
+        android:entries="@array/font"
+        android:entryValues="@array/fontValues"
+        android:defaultValue="14"
+        android:title="Wybierz domyślny rozmiar czcionki" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
