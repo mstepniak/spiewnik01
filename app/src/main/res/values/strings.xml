@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Śpiewnik PTTK</string>
+    <string name="textview">TextView</string>
 </resources>
