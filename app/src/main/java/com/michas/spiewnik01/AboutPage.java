@@ -11,7 +11,7 @@ public class AboutPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_page);
         TextView textViewTitle = findViewById(R.id.about);
-        String text = "Aplikacja stworzona dla:\nPTTK nr 7 przy UEK\n\nAutor:\nMichał Stępniak\nmichas1991@gmail.com\nUwagi i błędy proszę kierować na maila\n\n Wersja: v0.2";
+        String text = "Aplikacja stworzona dla:\nPTTK nr 7 przy UEK\n\nAutor:\nMichał Stępniak\nmichas1991@gmail.com\nUwagi i błędy proszę kierować na maila\n\n Wersja: v1.1";
         textViewTitle.setText(text);
     }
 }
